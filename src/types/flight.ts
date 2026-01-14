@@ -22,12 +22,6 @@ export interface SearchParams {
   tripType: 'one-way' | 'round-trip';
 }
 
-export interface Filters {
-  maxPrice?: number;
-  maxStops?: number;
-  airlines?: string[];
-}
-
 export interface PriceDataPoint {
   date: string;
   price: number;
