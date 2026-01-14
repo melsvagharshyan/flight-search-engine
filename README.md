@@ -56,7 +56,11 @@ The application uses the **Amadeus Self-Service API** for flight searches. You n
 ```env
 VITE_AMADEUS_API_KEY=your_amadeus_api_key_here
 VITE_AMADEUS_API_SECRET=your_amadeus_api_secret_here
+VITE_AMADEUS_AUTH_BASE_URL=https://test.api.amadeus.com/v1/security/oauth2
+VITE_AMADEUS_API_BASE_URL=https://test.api.amadeus.com/v2/shopping/flight-offers
 ```
+
+**Note**: The base URLs are optional and will default to the Amadeus test API endpoints if not provided. You can override them for different environments (e.g., production API).
 
 5. Restart your development server
 

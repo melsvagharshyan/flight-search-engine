@@ -14,8 +14,10 @@ const baseQueryWithAuth: BaseQueryFn<
   try {
     const token = await getAccessToken();
     
+    const apiBaseUrl = import.meta.env.VITE_AMADEUS_API_BASE_URL || 'https://test.api.amadeus.com/v2/shopping/flight-offers';
+    
     const baseQuery = fetchBaseQuery({
-      baseUrl: 'https://test.api.amadeus.com/v2/shopping/flight-offers',
+      baseUrl: apiBaseUrl,
       prepareHeaders: (headers) => {
         headers.set('Authorization', `Bearer ${token}`);
         headers.set('Content-Type', 'application/json');

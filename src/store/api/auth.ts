@@ -1,8 +1,10 @@
 import { fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import type { AmadeusTokenResponse } from './types';
 
+const authBaseUrl = import.meta.env.VITE_AMADEUS_AUTH_BASE_URL || 'https://test.api.amadeus.com/v1/security/oauth2';
+
 const authBaseQuery = fetchBaseQuery({
-  baseUrl: 'https://test.api.amadeus.com/v1/security/oauth2',
+  baseUrl: authBaseUrl,
 });
 
 let cachedToken: { token: string; expiresAt: number } | null = null;
