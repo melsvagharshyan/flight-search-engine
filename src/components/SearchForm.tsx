@@ -52,7 +52,7 @@ export default function SearchForm({ onSearch, isLoading }: SearchFormProps) {
     setDestination(temp);
   };
 
-  const inputBaseClasses = 'w-full pl-12 pr-4 py-3.5 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 font-medium transition-all duration-200 hover:border-gray-300';
+  const inputBaseClasses = 'w-full pl-12 pr-4 py-3.5 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 font-medium transition-all duration-200 hover:border-gray-300 cursor-pointer';
 
   return (
     <div className="bg-white rounded-2xl shadow-xl p-6 md:p-10 mb-10">
