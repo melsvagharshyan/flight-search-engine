@@ -1,31 +1,24 @@
 import { useState, useMemo } from 'react';
-import type { Filters } from './types/flight';
 import { useLazySearchFlightsQuery } from './store/api/flightApi';
 import { getPriceTrends } from './services/flightApi';
 import SearchForm from './components/SearchForm';
 import FlightResults from './components/FlightResults';
 import PriceGraph from './components/PriceGraph';
-import FiltersComponent from './components/Filters';
 import EmptyState from './components/ui/EmptyState';
 import { Plane } from 'lucide-react';
-import { useFlightFilters } from './hooks/useFlightFilters';
 
 function App() {
-  const [filters, setFilters] = useState<Filters>({});
   const [hasSearched, setHasSearched] = useState(false);
-  const [triggerSearch, { data: flights = [], isLoading, error }] = useLazySearchFlightsQuery();
-
-  const filteredFlights = useFlightFilters(flights, filters);
+  const [triggerSearch, { data: flights = [], isLoading, isFetching, error }] = useLazySearchFlightsQuery();
 
   const priceTrends = useMemo(() => {
-    if (filteredFlights.length === 0) return [];
-    return getPriceTrends(filteredFlights);
-  }, [filteredFlights]);
+    if (flights.length === 0) return [];
+    return getPriceTrends(flights);
+  }, [flights]);
 
-  const handleSearch = (params: Parameters<typeof triggerSearch>[0]) => {
+  const handleSearch = async (params: Parameters<typeof triggerSearch>[0]) => {
     setHasSearched(true);
-    setFilters({});
-    triggerSearch(params);
+    await triggerSearch(params);
   };
 
   if (error) {
@@ -49,24 +42,12 @@ function App() {
           </p>
         </header>
 
-        <SearchForm onSearch={handleSearch} isLoading={isLoading || false} />
+        <SearchForm onSearch={handleSearch} isLoading={isLoading || isFetching} />
 
         {hasSearched && (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
-            <div className="lg:col-span-1">
-              <div className="sticky top-6">
-                <FiltersComponent
-                  flights={flights}
-                  filters={filters}
-                  onFiltersChange={setFilters}
-                />
-              </div>
-            </div>
-
-            <div className="lg:col-span-2 space-y-6 md:space-y-8">
-              <PriceGraph data={priceTrends} isLoading={isLoading} />
-              <FlightResults flights={filteredFlights} isLoading={isLoading} />
-            </div>
+          <div className="space-y-6 md:space-y-8">
+            <PriceGraph data={priceTrends} isLoading={isLoading} />
+            <FlightResults flights={flights} isLoading={isLoading} />
           </div>
         )}
 

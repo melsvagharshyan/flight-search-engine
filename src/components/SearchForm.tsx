@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { SearchParams } from '../types/flight';
 import { Calendar, Users, Plane, ArrowRightLeft } from 'lucide-react';
 import { format } from 'date-fns';
@@ -23,9 +23,11 @@ export default function SearchForm({ onSearch, isLoading }: SearchFormProps) {
   const [departureDate, setDepartureDate] = useState(getDefaultDate(7));
   const [returnDate, setReturnDate] = useState(getDefaultDate(14));
   const [passengers, setPassengers] = useState(1);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
     onSearch({
       origin,
       destination,
@@ -35,6 +37,14 @@ export default function SearchForm({ onSearch, isLoading }: SearchFormProps) {
       tripType,
     });
   };
+
+  useEffect(() => {
+    if (!isLoading) {
+      setIsSubmitting(false);
+    }
+  }, [isLoading]);
+
+  const showLoader = isSubmitting || isLoading;
 
   const swapCities = () => {
     const temp = origin;
@@ -172,11 +182,11 @@ export default function SearchForm({ onSearch, isLoading }: SearchFormProps) {
 
         <Button
           type="submit"
-          disabled={isLoading}
+          disabled={showLoader}
           fullWidth
           className="py-4 px-8 text-lg min-h-[56px] shadow-lg hover:shadow-xl mt-2 flex items-center justify-center gap-3"
         >
-          {isLoading ? (
+          {showLoader ? (
             <>
               <LoadingSpinner size="sm" className="border-white" />
               <span>Searching...</span>

@@ -9,11 +9,11 @@ interface FlightCardProps {
 const StopsBadge = ({ stops }: { stops: number }) => {
   if (stops === 0) {
     return (
-      <p className="text-xs font-bold text-green-600 bg-green-50 px-2 py-1 rounded-full">Direct</p>
+      <p className="text-[10px] font-bold text-green-600 bg-green-50 px-1.5 py-0.5 rounded-full">Direct</p>
     );
   }
   return (
-    <p className="text-xs font-bold text-orange-600 bg-orange-50 px-2 py-1 rounded-full">
+    <p className="text-[10px] font-bold text-orange-600 bg-orange-50 px-1.5 py-0.5 rounded-full">
       {stops} {stops === 1 ? 'Stop' : 'Stops'}
     </p>
   );
@@ -35,23 +35,23 @@ export default function FlightCard({ flight }: FlightCardProps) {
 
         <div className="flex items-center gap-4 md:gap-8 flex-1 min-w-0">
           <div className="text-center flex-shrink-0">
-            <p className="text-3xl md:text-4xl font-bold text-gray-900 mb-1">{flight.departureTime}</p>
-            <p className="text-sm font-semibold text-gray-600">{flight.origin}</p>
+            <p className="text-2xl md:text-3xl font-bold text-gray-900 mb-1">{flight.departureTime}</p>
+            <p className="text-xs font-semibold text-gray-600">{flight.origin}</p>
           </div>
           
           <div className="flex-1 flex items-center gap-3 min-w-0">
             <div className="flex-1 h-0.5 bg-gradient-to-r from-gray-200 to-gray-300"></div>
-            <div className="flex flex-col items-center gap-2 flex-shrink-0 px-3">
-              <Clock className="w-5 h-5 text-blue-500" />
-              <p className="text-xs font-semibold text-gray-600 whitespace-nowrap">{flight.duration}</p>
+            <div className="flex flex-col items-center gap-1.5 flex-shrink-0 px-3">
+              <Clock className="w-4 h-4 text-blue-500" />
+              <p className="text-[10px] font-semibold text-gray-600 whitespace-nowrap">{flight.duration}</p>
               <StopsBadge stops={flight.stops} />
             </div>
             <div className="flex-1 h-0.5 bg-gradient-to-r from-gray-300 to-gray-200"></div>
           </div>
           
           <div className="text-center flex-shrink-0">
-            <p className="text-3xl md:text-4xl font-bold text-gray-900 mb-1">{flight.arrivalTime}</p>
-            <p className="text-sm font-semibold text-gray-600">{flight.destination}</p>
+            <p className="text-2xl md:text-3xl font-bold text-gray-900 mb-1">{flight.arrivalTime}</p>
+            <p className="text-xs font-semibold text-gray-600">{flight.destination}</p>
           </div>
         </div>
 
